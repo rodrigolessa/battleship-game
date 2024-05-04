@@ -7,6 +7,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Camadas", "2 - Camadas", "{BEC279AB-F7BB-4144-9A58-F7FE6E501EBD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Dependências", "1 - Dependências", "{E2E2A960-EB1F-463C-ADCA-BFBAC7CB5E5F}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Arquitetura e Design", "0 - Arquitetura e Design", "{9BEA00D3-8F7F-4500-828A-79E8CAB5915C}"
 EndProject
@@ -45,6 +48,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleshipGame.Application.UnitTests", "BattleshipGame.Application.UnitTests\BattleshipGame.Application.UnitTests.csproj", "{19669D89-1244-4893-8CEB-8C00B39DFD48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleshipGame.WebApi.UnitTests", "BattleshipGame.WebApi.UnitTests\BattleshipGame.WebApi.UnitTests.csproj", "{2F556DC8-9E25-439C-A613-5379E171EA74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.1 - Database", "1.1 - Database", "{B54E25F5-A0EB-4C17-A748-41C9C1947195}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleshipGame.Infrastructure.ReadModel", "BattleshipGame.Infrastructure.ReadModel\BattleshipGame.Infrastructure.ReadModel.csproj", "{0D9A01A7-0057-4664-B7C6-15DCC5D80783}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +95,10 @@ Global
 		{2F556DC8-9E25-439C-A613-5379E171EA74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F556DC8-9E25-439C-A613-5379E171EA74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F556DC8-9E25-439C-A613-5379E171EA74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D9A01A7-0057-4664-B7C6-15DCC5D80783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D9A01A7-0057-4664-B7C6-15DCC5D80783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D9A01A7-0057-4664-B7C6-15DCC5D80783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D9A01A7-0057-4664-B7C6-15DCC5D80783}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F3DFF260-DA90-469A-8EF4-5F4EE5EDD29C} = {BEC279AB-F7BB-4144-9A58-F7FE6E501EBD}
@@ -109,5 +120,7 @@ Global
 		{E3429FF5-7257-40F6-8888-10B61A067C2E} = {88E2192E-0D61-46FE-8C70-9FAE87918309}
 		{19669D89-1244-4893-8CEB-8C00B39DFD48} = {88E2192E-0D61-46FE-8C70-9FAE87918309}
 		{2F556DC8-9E25-439C-A613-5379E171EA74} = {88E2192E-0D61-46FE-8C70-9FAE87918309}
+		{B54E25F5-A0EB-4C17-A748-41C9C1947195} = {E2E2A960-EB1F-463C-ADCA-BFBAC7CB5E5F}
+		{0D9A01A7-0057-4664-B7C6-15DCC5D80783} = {F3DFF260-DA90-469A-8EF4-5F4EE5EDD29C}
 	EndGlobalSection
 EndGlobal

@@ -8,6 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="HybridModelBinding" Version="0.18.1-alpha.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.17"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
     </ItemGroup>
@@ -16,6 +19,17 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Configurations\" />
+      <Folder Include="Contracts\v1\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BattleshipGame.Application\BattleshipGame.Application.csproj" />
+      <ProjectReference Include="..\BattleshipGame.Infrastructure\BattleshipGame.Infrastructure.csproj" />
+      <ProjectReference Include="..\BattleshipGame\BattleshipGame.csproj" />
     </ItemGroup>
 
 </Project>
