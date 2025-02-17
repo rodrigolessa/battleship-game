@@ -9,6 +9,7 @@
     <ItemGroup>
       <Folder Include="CommandHandlers\" />
       <Folder Include="EventHandlers\" />
+      <Folder Include="Models\" />
       <Folder Include="Services\" />
     </ItemGroup>
 
@@ -19,8 +20,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BattleshipGame.Infrastructure.Persistence\BattleshipGame.Infrastructure.Persistence.csproj" />
+      <ProjectReference Include="..\BattleshipGame.Infrastructure.ReadModel\BattleshipGame.Infrastructure.ReadModel.csproj" />
       <ProjectReference Include="..\BattleshipGame.Infrastructure\BattleshipGame.Infrastructure.csproj" />
       <ProjectReference Include="..\BattleshipGame\BattleshipGame.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NATS.Client.Core" Version="2.5.8" />
     </ItemGroup>
 
 </Project>

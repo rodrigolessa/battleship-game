@@ -11,6 +11,7 @@
       <PackageReference Include="FluentValidation" Version="11.9.0" />
       <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+      <PackageReference Include="Google.Protobuf" Version="3.29.3" />
       <PackageReference Include="MediatR" Version="12.2.0" />
       <PackageReference Include="StronglyTypedId" Version="1.0.0-beta07" />
     </ItemGroup>
