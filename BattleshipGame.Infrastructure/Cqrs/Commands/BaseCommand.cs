@@ -18,21 +18,25 @@ public abstract class BaseCommand : IBaseCommand
         string channelKey,
         string applicationKey,
         string sagaProcessKey,
-        string userEmail = null)
+        string userEmail = "")
     {
-        SetIdempotencyKey(idempotencyKey);
+        IdempotencyKey = idempotencyKey;
         AggregateId = aggregateId;
         SessionKey = sessionKey;
+        ChannelKey = channelKey;
         ApplicationKey = applicationKey;
         SagaProcessKey = sagaProcessKey;
         UserEmail = userEmail;
         Timestamp = DateTime.UtcNow;
+        
+        SetIdempotencyKey();
     }
 
-    private void SetIdempotencyKey(string idempotencyKey)
+    private void SetIdempotencyKey()
     {
-        IdempotencyKey = string.IsNullOrWhiteSpace(idempotencyKey)
-            ? BaseCommandIdempotencyKey.New().ToString()
-            : idempotencyKey;
+        if (string.IsNullOrWhiteSpace(IdempotencyKey))
+        {
+            IdempotencyKey = BaseCommandIdempotencyKey.New().ToString();
+        }
     }
 }
