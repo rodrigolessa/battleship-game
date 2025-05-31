@@ -4,7 +4,7 @@ using StronglyTypedIds;
 
 namespace BattleshipGame.Models;
 
-[StronglyTypedId(Template.Guid)]
+[StronglyTypedId]
 public partial struct GameId {}
 
 public class Game : AggregateRoot

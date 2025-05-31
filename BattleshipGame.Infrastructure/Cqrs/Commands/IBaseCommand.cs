@@ -2,12 +2,12 @@ using StronglyTypedIds;
 
 namespace BattleshipGame.Infrastructure.Cqrs.Commands;
 
-[StronglyTypedId(Template.Guid)]
+[StronglyTypedId]
 public partial struct BaseCommandIdempotencyKey { }
 
 public interface IBaseCommand
 {
-    // TODO: Find an way to implement the specific type, BaseCommandIdempotencyKey
+    // TODO: Find a way to implement the specific type, BaseCommandIdempotencyKey
     string IdempotencyKey { get; set; }
     string AggregateId { get; set; }
     string SessionKey { get; set; }

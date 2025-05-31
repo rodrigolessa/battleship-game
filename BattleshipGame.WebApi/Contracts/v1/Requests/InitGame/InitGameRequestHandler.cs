@@ -27,7 +27,7 @@ public class InitGameRequestHandler : IInitGameRequestHandler
             Player2Name = request.Player2
         };
 
-        // TODO: Map request to command using Mappely
+        // TODO: Map request to command using Mapperly
         // TODO: Schedule command to NATs
         
         var newGameInfo = new NewGameInfoResponse(command.IdempotencyKey, gameId, playerOneId, playerTwoId);

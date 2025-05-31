@@ -16,11 +16,26 @@ Battleship Game engine with Event Sourcing and C#
 
 - [CQRS pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs)
 - Event Source
+- Outbox Pattern
+- [Transactional outbox] (https://microservices.io/patterns/data/transactional-outbox.html)
 
+## Message Brokers
 
-## Message Bus
+### RabbitMQ (with plugins)
 
-### Start NATS Locally
+- For Scheduled Delivery. Needs Delayed Message Plugin
+- Ordered Queues / Sessions. FIFO within queue; limited session-like behavior via x-group-id or custom logic
+
+#### Start RabbitMQ Locally
+
+#### Install RabbitMQ Client in .NET
+
+### NATS
+
+- Scheduled Delivery. Custom delay (not native) via stream retention + cron/consumer delay;
+- Ordered Queues / Sessions. Ordered consumers, but not true sessions
+
+#### Start NATS Locally
 
 - Install NATS Server:
 Download from NATS.io
@@ -30,7 +45,7 @@ Download from NATS.io
 docker run -d --name nats-server -p 4222:4222 nats:latest
 ´´´
 
-### Install NATS Client in .NET
+#### Install NATS Client in .NET
 
 - Add the required package:
 ´´´
@@ -64,4 +79,4 @@ dotnet add package NATS.Client.Core
 
 - Implement retries and failure handling;
 - Add logging and monitoring;
-- Use JetStream if message persistence is needed;
+- Use NATS JetStream if message persistence is needed;

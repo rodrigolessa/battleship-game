@@ -1,19 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
 
 
     <ItemGroup>
-      <PackageReference Include="FluentValidation" Version="11.9.0" />
+      <PackageReference Include="FluentValidation" Version="11.11.0" />
       <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
-      <PackageReference Include="Google.Protobuf" Version="3.29.3" />
-      <PackageReference Include="MediatR" Version="12.2.0" />
-      <PackageReference Include="StronglyTypedId" Version="1.0.0-beta07" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+      <PackageReference Include="Google.Protobuf" Version="3.31.1" />
+      <PackageReference Include="MediatR" Version="12.5.0" />
+      <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
+      <PackageReference Include="StronglyTypedId" Version="1.0.0-beta08" />
     </ItemGroup>
 
 
@@ -21,6 +23,9 @@
 
 
     <ItemGroup>
+      <Folder Include="Authentication\Requests\" />
+      <Folder Include="Cqrs\Abstractions\" />
+      <Folder Include="Logging\" />
       <Folder Include="Validators\" />
     </ItemGroup>
 

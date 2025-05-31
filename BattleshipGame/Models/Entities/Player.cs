@@ -5,7 +5,7 @@ using StronglyTypedIds;
 
 namespace BattleshipGame.Models.Entities;
 
-[StronglyTypedId(Template.Guid)]
+[StronglyTypedId]
 public partial struct PlayerId {}
 
 public class Player : Entity
@@ -28,14 +28,14 @@ public class Player : Entity
     public Player(string name)
     {
         Name = name;
-        Ships = new List<Vessel>()
-        {
+        Ships =
+        [
             new Destroyer(),
             new Submarine(),
             new Cruiser(),
             new Battleship(),
             new AircraftCarrier()
-        };
+        ];
         GameBoard = new GameBoard();
         FiringBoard = new FiringBoard();
     }

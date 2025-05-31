@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="NATS.Client.Core" Version="2.5.8" />
+      <PackageReference Include="NATS.Client.Core" Version="2.6.1" />
     </ItemGroup>
 
 </Project>
