@@ -19,6 +19,23 @@ Battleship Game engine with Event Sourcing and C#
 - Outbox Pattern
 - [Transactional outbox] (https://microservices.io/patterns/data/transactional-outbox.html)
 
+### Most Common filters
+Mechanism to intercept and modify the execution of a request pipeline;
+
+- IAuthorizationFilter (Authorization - Run early to allow/deny access)
+- IResourceFilter (Resource - Wrap around the entire request)
+- IActionFilter (Action - Run before/after controller actions)
+- IExceptionFilter (Exception - Handle exceptions globally)
+- IResultFilter (Result - Before/after the result is executed)
+
+Useful for concerns like:
+
+- Logging
+- Authorization
+- Exception handling
+- Validation
+- Caching
+
 ## Message Brokers
 
 ### RabbitMQ (with plugins)
