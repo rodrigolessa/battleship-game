@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>12</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Exceptions\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Humanizer.Core" Version="2.14.1" />
+      <PackageReference Include="Riok.Mapperly" Version="4.2.1" />
+      <PackageReference Include="Shouldly" Version="4.3.0" />
+      <PackageReference Include="Sqids" Version="3.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BattleshipGame.Infrastructure\BattleshipGame.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="StronglyTypedIds.Attributes">
+        <HintPath>..\..\..\.nuget\packages\stronglytypedid\1.0.0-beta08\lib\netstandard2.0\StronglyTypedIds.Attributes.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>
