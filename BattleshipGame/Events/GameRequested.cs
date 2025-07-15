@@ -1,6 +1,6 @@
 namespace BattleshipGame.Events;
 
-public class GameCreated
+public sealed class GameRequested
 {
     
 }
