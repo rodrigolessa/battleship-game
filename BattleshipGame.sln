@@ -68,14 +68,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventStore", "EventStore", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadModel", "ReadModel", "{92510BB6-A767-4BA1-9957-614B361F23A8}"
 	ProjectSection(SolutionItems) = preProject
-		Databases\ReadModel\05 - FiringBoard.sql = Databases\ReadModel\05 - FiringBoard.sql
 		Databases\ReadModel\04 - GameBoard.sql = Databases\ReadModel\04 - GameBoard.sql
-		Databases\ReadModel\06 - Panel.sql = Databases\ReadModel\06 - Panel.sql
-		Databases\ReadModel\07 - Coordinates.sql = Databases\ReadModel\07 - Coordinates.sql
 		Databases\ReadModel\02 - Game.sql = Databases\ReadModel\02 - Game.sql
 		Databases\ReadModel\01 - Schema - Battleship.sql = Databases\ReadModel\01 - Schema - Battleship.sql
-		Databases\ReadModel\08 - Vessel.sql = Databases\ReadModel\08 - Vessel.sql
 		Databases\ReadModel\03 - Player.sql = Databases\ReadModel\03 - Player.sql
+		Databases\ReadModel\06 - Vessel.sql = Databases\ReadModel\06 - Vessel.sql
+		Databases\ReadModel\05 - Panel.sql = Databases\ReadModel\05 - Panel.sql
 	EndProjectSection
 EndProject
 Global
