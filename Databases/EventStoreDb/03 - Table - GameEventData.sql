@@ -4,4 +4,3 @@ CREATE TABLE [eventstore].[GameEventData] (
     CONSTRAINT [PK_GameEventData] PRIMARY KEY CLUSTERED ([EventKey] ASC),
     CONSTRAINT [FK_GameEventData_EventKey] FOREIGN KEY ([EventKey]) REFERENCES [eventstore].[GameEvent]([EventKey])
 );
-GO

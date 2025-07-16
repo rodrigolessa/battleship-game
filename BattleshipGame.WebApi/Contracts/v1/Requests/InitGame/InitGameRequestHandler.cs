@@ -19,16 +19,17 @@ public class InitGameRequestHandler : IInitGameRequestHandler
             string.Empty,
             string.Empty,
             string.Empty,
-            string.Empty)
+            string.Empty,
+            playerOneId,
+            request.Player1,
+            playerTwoId,
+            request.Player2)
         {
-            Player1Id = playerOneId,
-            Player1Name = request.Player1,
-            Player2Id = playerTwoId,
-            Player2Name = request.Player2
+
         };
 
         // TODO: Map request to command using Mapperly
-        // TODO: Schedule command to NATs
+        // TODO: Schedule command to RabbitMQ
         
         var newGameInfo = new NewGameInfoResponse(command.IdempotencyKey, gameId, playerOneId, playerTwoId);
 

@@ -1,2 +1,1 @@
-CREATE SCHEMA [eventstore]
-GO
+CREATE SCHEMA [eventstore];

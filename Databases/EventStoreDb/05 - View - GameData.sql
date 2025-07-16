@@ -9,4 +9,4 @@ SELECT
     e.[EventCommittedTimestamp],
     d.[EventData]
 FROM [eventstore].[GameEvent] e
-INNER JOIN [eventstore].[GameEventData] d ON (e.EventKey = d.EventKey)
+INNER JOIN [eventstore].[GameEventData] d ON (e.EventKey = d.EventKey);

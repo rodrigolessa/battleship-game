@@ -8,4 +8,3 @@ CREATE TABLE [eventstore].[GameSnapshot] (
     [SnapshotCommittedTimestamp] DATETIME2 (7) NOT NULL,
     CONSTRAINT [PK_GameSnapshot] PRIMARY KEY CLUSTERED ([SnapshotKey] ASC)
 );
-GO
