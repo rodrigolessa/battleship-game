@@ -1,5 +1,5 @@
-using BattleshipGame.Infrastructure.Models;
 using BattleshipGame.Models.Entities;
+using frm.Infrastructure.EventSourcing.Models;
 using StronglyTypedIds;
 
 namespace BattleshipGame.Models;

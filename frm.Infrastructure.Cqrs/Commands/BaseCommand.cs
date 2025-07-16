@@ -1,4 +1,4 @@
-namespace BattleshipGame.Infrastructure.Cqrs.Commands;
+namespace frm.Infrastructure.Cqrs.Commands;
 
 public abstract class BaseCommand : IBaseCommand
 {

@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace BattleshipGame.Infrastructure.Cqrs.Queries.Results;
+namespace frm.Infrastructure.Cqrs.Queries.Results;
 
 public class PagedResult<T> : IPagedResult where T : class
 {

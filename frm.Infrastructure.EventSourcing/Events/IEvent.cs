@@ -1,4 +1,4 @@
-namespace BattleshipGame.Infrastructure.Cqrs.Events;
+namespace frm.Infrastructure.EventSourcing.Events;
 
 public interface IEvent
 {
@@ -7,6 +7,7 @@ public interface IEvent
     string IdempotencyKey { get; set; }
     string AggregateId { get; set; }
     string SessionKey { get; set; }
+    // TODO: Move the channel name to the publisher method
     string ChannelKey { get; set; }
     string ApplicationKey { get; set; }
     string SagaProcessKey { get; set; }

@@ -1,6 +1,6 @@
-using BattleshipGame.Infrastructure.Cqrs.Queries.Specifications;
+using frm.Infrastructure.Cqrs.Queries.Specifications;
 
-namespace BattleshipGame.Infrastructure.Cqrs.Queries;
+namespace frm.Infrastructure.Cqrs.Queries;
 
 public interface IPagedQuery<T> where T : class
 {

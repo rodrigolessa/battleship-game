@@ -1,9 +1,4 @@
-using StronglyTypedIds;
-
-namespace BattleshipGame.Infrastructure.Cqrs.Commands;
-
-[StronglyTypedId]
-public partial struct BaseCommandIdempotencyKey { }
+namespace frm.Infrastructure.Cqrs.Commands;
 
 public interface IBaseCommand
 {
@@ -11,6 +6,7 @@ public interface IBaseCommand
     string IdempotencyKey { get; set; }
     string AggregateId { get; set; }
     string SessionKey { get; set; }
+    // TODO: Move responsibility to the messaging package
     string ChannelKey { get; set; }
     string ApplicationKey { get; set; }
     string SagaProcessKey { get; set; }

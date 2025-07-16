@@ -1,6 +1,6 @@
-using BattleshipGame.Infrastructure.Cqrs.Events;
+using frm.Infrastructure.EventSourcing.Events;
 
-namespace BattleshipGame.Infrastructure.Brokers.Abstractions;
+namespace frm.Infrastructure.Messaging.Abstractions;
 
 public interface IEventPublisher
 {

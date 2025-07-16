@@ -1,4 +1,4 @@
-using BattleshipGame.Infrastructure.Models;
+using frm.Infrastructure.EventSourcing.Models;
 using StronglyTypedIds;
 
 namespace BattleshipGame.Models.Entities.Boards;

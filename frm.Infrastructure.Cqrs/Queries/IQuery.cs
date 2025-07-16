@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace BattleshipGame.Infrastructure.Cqrs.Queries;
+namespace frm.Infrastructure.Cqrs.Queries;
 
 public interface IQuery<out TResponse> : IRequest<TResponse>
 {

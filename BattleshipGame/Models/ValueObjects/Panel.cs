@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using BattleshipGame.Infrastructure.Models;
 using BattleshipGame.Models.Enumerations;
 using BattleshipGame.Models.ValueObjects;
 using Humanizer;

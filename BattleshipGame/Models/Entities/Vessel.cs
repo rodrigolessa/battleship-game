@@ -1,5 +1,5 @@
-﻿using BattleshipGame.Infrastructure.Models;
-using BattleshipGame.Models.Enumerations;
+﻿using BattleshipGame.Models.Enumerations;
+using frm.Infrastructure.EventSourcing.Models;
 
 namespace BattleshipGame.Models.Entities;
 

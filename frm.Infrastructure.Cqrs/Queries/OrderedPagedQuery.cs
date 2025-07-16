@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace BattleshipGame.Infrastructure.Cqrs.Queries;
+namespace frm.Infrastructure.Cqrs.Queries;
 
 public class OrderedPagedQuery<T> : PagedQuery<T> where T : class
 {
