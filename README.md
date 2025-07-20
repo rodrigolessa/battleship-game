@@ -42,6 +42,7 @@ Useful for concerns like:
 
 - For Scheduled Delivery. Needs Delayed Message Plugin
 - Ordered Queues / Sessions. FIFO within queue; limited session-like behavior via x-group-id or custom logic
+- Simulate RabbitMQ behavior with https://tryrabbitmq.com/
 
 #### Start RabbitMQ Locally
 
