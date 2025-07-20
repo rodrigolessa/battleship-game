@@ -75,6 +75,13 @@ public class RabbitMqInitializer(MessageBrokerSettings settings) : IHostedServic
             exclusive: false,
             autoDelete: channelSettings.AutoDelete,
             cancellationToken: cancellationToken);
+        
+        // TODO: Set queue common arguments
+        // x-message-ttl = TTL (Time-to-Live) for each message (in ms)
+        // x-dead-letter-exchange = Exchange to route expired/rejected messages
+        // x-dead-letter-routing-key = Routing key for DLX messages
+        // x-max-priority = Enable message priorities (0–255)
+        // x-queue-mode = Set lazy for disk-based queues
     }
 
     private static async Task CreateTheExchange(
@@ -88,6 +95,9 @@ public class RabbitMqInitializer(MessageBrokerSettings settings) : IHostedServic
             durable: channelSettings.UsePersistentStorage,
             autoDelete: channelSettings.AutoDelete,
             cancellationToken: cancellationToken);
+        
+        // TODO: Set exchange common arguments
+        // alternate-exchange = Fallback exchange if no queue matches
     }
 
     /// <summary>
