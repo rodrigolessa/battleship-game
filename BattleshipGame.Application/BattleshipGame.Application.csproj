@@ -17,6 +17,7 @@
       <ProjectReference Include="..\BattleshipGame.Infrastructure.ReadModel\BattleshipGame.Infrastructure.ReadModel.csproj" />
       <ProjectReference Include="..\BattleshipGame.Infrastructure\BattleshipGame.Infrastructure.csproj" />
       <ProjectReference Include="..\BattleshipGame\BattleshipGame.csproj" />
+      <ProjectReference Include="..\frm.Infrastructure.Messaging.RabbitMqSettings\frm.Infrastructure.Messaging.RabbitMqSettings.csproj" />
     </ItemGroup>
 
     <ItemGroup>

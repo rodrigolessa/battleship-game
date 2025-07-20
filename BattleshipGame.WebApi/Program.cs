@@ -39,7 +39,7 @@ builder.Services.AddQueryHandlers();
 
 // Message Broker
 
-// builder.Services.AddRabbitMQ(Configuration);
+builder.Services.AddRabbitMQ(builder.Configuration);
 
 // Storage
 
