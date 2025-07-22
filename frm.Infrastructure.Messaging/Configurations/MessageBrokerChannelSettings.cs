@@ -7,7 +7,7 @@ public sealed class MessageBrokerChannelSettings // Exchange, Queue and Binds
     // A channel is an Exchange in RabbitMQ
     public bool EnableChannel { get; set; } = false;
     public required string Name { get; set; }
-    public ChannelType Type { get; set; } = ChannelType.Direct;
+    public RoutingType RoutingType { get; set; } = RoutingType.Direct;
     public bool UsePersistentStorage { get; set; } = false;
     public bool AutoDelete { get; set; } = false;
     public ushort PrefetchCount { get; set; } = 0;

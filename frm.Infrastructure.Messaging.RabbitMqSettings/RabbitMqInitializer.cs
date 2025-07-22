@@ -91,7 +91,7 @@ public class RabbitMqInitializer(MessageBrokerSettings settings) : IHostedServic
     {
         await channel.ExchangeDeclareAsync(
             exchange: channelSettings.Name,
-            type: channelSettings.Type.ToString(),
+            type: channelSettings.RoutingType.ToString().ToLowerInvariant(),
             durable: channelSettings.UsePersistentStorage,
             autoDelete: channelSettings.AutoDelete,
             cancellationToken: cancellationToken);

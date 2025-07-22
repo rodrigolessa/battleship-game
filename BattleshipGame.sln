@@ -106,6 +106,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3.1 - Workflows", "1.3.1 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "frm.Infrastructure.Messaging.RabbitMqSettings", "frm.Infrastructure.Messaging.RabbitMqSettings\frm.Infrastructure.Messaging.RabbitMqSettings.csproj", "{7992E6DC-4FBD-471E-AE98-E3A79EF43B9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "frm.Infrastructure.Extensions", "frm.Infrastructure.Extensions\frm.Infrastructure.Extensions.csproj", "{F418ADF8-F609-4926-A8C9-BB0E4BC80187}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,6 +182,10 @@ Global
 		{7992E6DC-4FBD-471E-AE98-E3A79EF43B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7992E6DC-4FBD-471E-AE98-E3A79EF43B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7992E6DC-4FBD-471E-AE98-E3A79EF43B9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F418ADF8-F609-4926-A8C9-BB0E4BC80187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F418ADF8-F609-4926-A8C9-BB0E4BC80187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F418ADF8-F609-4926-A8C9-BB0E4BC80187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F418ADF8-F609-4926-A8C9-BB0E4BC80187}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F3DFF260-DA90-469A-8EF4-5F4EE5EDD29C} = {BEC279AB-F7BB-4144-9A58-F7FE6E501EBD}
@@ -222,5 +228,6 @@ Global
 		{134F4E67-DC16-4814-AD39-8321CF672932} = {E2E2A960-EB1F-463C-ADCA-BFBAC7CB5E5F}
 		{F85ADC03-E6A3-4B19-8A48-66480FF8049C} = {134F4E67-DC16-4814-AD39-8321CF672932}
 		{7992E6DC-4FBD-471E-AE98-E3A79EF43B9A} = {F3DFF260-DA90-469A-8EF4-5F4EE5EDD29C}
+		{F418ADF8-F609-4926-A8C9-BB0E4BC80187} = {F3DFF260-DA90-469A-8EF4-5F4EE5EDD29C}
 	EndGlobalSection
 EndGlobal
