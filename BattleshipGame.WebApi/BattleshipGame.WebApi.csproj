@@ -23,12 +23,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Configurations\" />
       <Folder Include="Contracts\v1\" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\BattleshipGame.Application\BattleshipGame.Application.csproj" />
+      <ProjectReference Include="..\BattleshipGame.Infrastructure.IoC\BattleshipGame.Infrastructure.IoC.csproj" />
       <ProjectReference Include="..\BattleshipGame.Infrastructure\BattleshipGame.Infrastructure.csproj" />
       <ProjectReference Include="..\BattleshipGame\BattleshipGame.csproj" />
     </ItemGroup>

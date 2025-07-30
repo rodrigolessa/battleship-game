@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BattleshipGame.Application\BattleshipGame.Application.csproj" />
+      <ProjectReference Include="..\BattleshipGame.Infrastructure.IoC\BattleshipGame.Infrastructure.IoC.csproj" />
       <ProjectReference Include="..\BattleshipGame.Infrastructure\BattleshipGame.Infrastructure.csproj" />
     </ItemGroup>
 </Project>

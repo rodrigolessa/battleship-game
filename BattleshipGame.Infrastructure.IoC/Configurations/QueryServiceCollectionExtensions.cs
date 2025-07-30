@@ -5,7 +5,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BattleshipGame.Application.Configurations;
+namespace BattleshipGame.Infrastructure.IoC.Configurations;
 
 [ExcludeFromCodeCoverage]
 public static class QueryServiceCollectionExtensions

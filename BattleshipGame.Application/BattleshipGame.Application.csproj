@@ -13,15 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BattleshipGame.Infrastructure.Persistence\BattleshipGame.Infrastructure.Persistence.csproj" />
-      <ProjectReference Include="..\BattleshipGame.Infrastructure.ReadModel\BattleshipGame.Infrastructure.ReadModel.csproj" />
       <ProjectReference Include="..\BattleshipGame.Infrastructure\BattleshipGame.Infrastructure.csproj" />
       <ProjectReference Include="..\BattleshipGame\BattleshipGame.csproj" />
-      <ProjectReference Include="..\frm.Infrastructure.Messaging.RabbitMqSettings\frm.Infrastructure.Messaging.RabbitMqSettings.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="NATS.Client.Core" Version="2.6.1" />
     </ItemGroup>
 
     <ItemGroup>

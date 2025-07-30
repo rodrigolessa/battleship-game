@@ -80,14 +80,13 @@ dotnet add package NATS.Client.Core
 - Streaming Support -> **JetStream** built-in;
 - Active Development -> Actively improved;
 
-
 ### Best Practices for Reducing Message Size
 
 - Minimize Payload – Only send essential fields (command and executeAt);
 - Use Binary Format – Instead of JSON, use **ProtoBuf* for smaller payloads;
 - Dedicated Subjects – Use subjects like scheduled.jobs.destroygame for specific tasks to reduce unnecessary processing;
 
-#### Why Protobuf is Better?
+#### How is Protobuf Better?
 
 - Smaller Size - Protobuf messages are compact and efficient;
 - Faster Serialization - Binary format is much faster than JSON;

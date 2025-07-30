@@ -1,4 +1,4 @@
-using BattleshipGame.Application.Configurations;
+using BattleshipGame.Infrastructure.IoC.Configurations;
 using BattleshipGame.WebApi.Contracts.v1.Requests.InitGame;
 using BattleshipGame.WebApi.RequestProcessor;
 using FluentValidation.AspNetCore;
@@ -38,8 +38,8 @@ builder.Services.AddQueryValidators();
 builder.Services.AddQueryHandlers();
 
 // Message Broker
-
-builder.Services.AddRabbitMQ(builder.Configuration);
+// Create the exchange needed for API send the messages
+builder.Services.AddRabbitMq(builder.Configuration);
 
 // Storage
 

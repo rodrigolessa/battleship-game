@@ -1,7 +1,13 @@
+using BattleshipGame.Infrastructure.IoC.Configurations;
 using BattleshipGame.Worker;
 
-IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services => { services.AddHostedService<Worker>(); })
-    .Build();
+var builder = Host.CreateApplicationBuilder(args);
 
+builder.Services.AddHostedService<Worker>();
+
+// Message Broker
+// Create all resources: exchange, queues and binds
+builder.Services.AddRabbitMq(builder.Configuration);
+
+var host = builder.Build();
 host.Run();
