@@ -5,4 +5,4 @@ namespace BattleshipGame.Models.ValueObjects;
 /// </summary>
 /// <param name="Row"></param>
 /// <param name="Column"></param>
-public record struct Coordinates(int Row, int Column);
+public record struct Coordinates(short Row, short Column);
