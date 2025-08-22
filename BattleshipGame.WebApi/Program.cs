@@ -17,13 +17,12 @@ builder.Services.AddScoped<IRequestProcessor, RequestProcessor>();
 builder.Services.AddScoped<IMediator, Mediator>();
 
 // Logging
-
-// builder.Services.AddLoki();
+//builder.Services.AddLoki();
 
 // Authorization
-
 //builder.Services.AddAuthorizationServices(Configuration);
 //builder.Services.AddAuthenticationServices(Configuration);
+//builder.Services.AddKeyCloak();
 
 // TODO: Encapsulate DI in extensions methods
 
@@ -48,16 +47,16 @@ builder.Services.AddRabbitMq(builder.Configuration);
 // TODO: Uncomment to validate game status
 // builder.Services.AddHostedService<EndGameBackgroundService>();
 
-// Cache Service
-
+// Caching
+// TODO: What strategy fit for our project? 
+// TODO: Implement a Bloom Filter Algorithm
 //builder.Services.AddRedis(Configuration);
 
 // Serialization
-
 // builder.Services.AddSerializerSchema();
 
 // API Endpoints
-
+// TODO: Implement a Leaky Bucket Algorithm and use for rate limiting
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -67,7 +66,6 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddDocumentation(Configuration, DocumentationConfiguration.OpenApiOptions);
 
 // Health checks
-
 //builder.Services.AddAllHealthChecks<ReadModelContext>(Configuration);
 
 var app = builder.Build();
