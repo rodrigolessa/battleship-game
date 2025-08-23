@@ -1,4 +1,5 @@
 using frm.Infrastructure.Messaging.Configurations;
+using frm.Infrastructure.Messaging.Enumerations;
 using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
 
@@ -23,8 +24,8 @@ public class RabbitMqInitializer(MessageBrokerSettings settings) : IHostedServic
             UserName = settings.UserName,
             Password = settings.UserPassword,
             VirtualHost = "/",
-            ConsumerDispatchConcurrency =
-                1 // A value greater than one enables parallelism for a single consumer on a single session/channel, within the limits of the prefetchCount
+            ConsumerDispatchConcurrency = 1
+            // A value greater than one enables parallelism for a single consumer on a single session/channel, within the limits of the prefetchCount
         };
 
         _connection = await factory.CreateConnectionAsync(cancellationToken);
@@ -44,64 +45,158 @@ public class RabbitMqInitializer(MessageBrokerSettings settings) : IHostedServic
 
             await SetUnackedMessageLimit(channel, channelSettings, cancellationToken);
 
-            await CreateTheExchange(channel, channelSettings, cancellationToken);
+            var deadletter = await CreateTheExchange(channel, channelSettings, cancellationToken);
 
-            await CreateTheQueue(channel, channelSettings, cancellationToken);
-
-            await AddBindBetweenExchangeAndQueue(channel, channelSettings, cancellationToken);
+            await CreateAnyNecessaryQueues(channel, channelSettings, deadletter, cancellationToken);
         }
     }
 
     private static async Task AddBindBetweenExchangeAndQueue(
         IChannel channel,
-        MessageBrokerChannelSettings channelSettings,
+        string exchangeName,
+        MessageBrokerQueueSettings queueSettings,
         CancellationToken cancellationToken)
     {
         await channel.QueueBindAsync(
-            queue: channelSettings.QueueName,
-            exchange: channelSettings.Name,
-            routingKey: channelSettings.BindKey,
+            queue: queueSettings.Name,
+            exchange: exchangeName,
+            routingKey: queueSettings.BindKey,
             cancellationToken: cancellationToken);
     }
 
-    private static async Task CreateTheQueue(
+    private async Task CreateAnyNecessaryQueues(
         IChannel channel,
         MessageBrokerChannelSettings channelSettings,
+        MessageBrokerExchangeSettings deadLetterExchangeSettings,
         CancellationToken cancellationToken)
     {
-        await channel.QueueDeclareAsync(
-            queue: channelSettings.QueueName,
-            durable: channelSettings.UsePersistentStorage,
-            exclusive: false,
-            autoDelete: channelSettings.AutoDelete,
-            cancellationToken: cancellationToken);
-        
-        // TODO: Set queue common arguments
-        // x-message-ttl = TTL (Time-to-Live) for each message (in ms)
-        // x-dead-letter-exchange = Exchange to route expired/rejected messages
-        // x-dead-letter-routing-key = Routing key for DLX messages
-        // x-max-priority = Enable message priorities (0–255)
-        // x-queue-mode = Set lazy for disk-based queues
+        foreach (var queue in channelSettings.Queues)
+        {
+            // Main queue        
+            await channel.QueueDeclareAsync(
+                queue: queue.Name,
+                durable: queue.UsePersistentStorage,
+                exclusive: false,
+                autoDelete: queue.AutoDelete,
+                cancellationToken: cancellationToken,
+                arguments: null);
+
+            await AddBindBetweenExchangeAndQueue(channel, channelSettings.Exchange.Name, queue, cancellationToken);
+
+            // TODO: Set queue common arguments
+            // x-message-ttl = TTL (Time-to-Live) for each message (in ms)
+            // x-dead-letter-exchange = Exchange to route expired/rejected messages
+            // x-dead-letter-routing-key = Routing key for DLX messages
+            // x-max-priority = Enable message priorities (0–255)
+            // x-queue-mode = Set lazy for disk-based queues
+
+            await CreateARetryWithDeadLetter(channel, queue, deadLetterExchangeSettings, cancellationToken);
+        }
     }
 
-    private static async Task CreateTheExchange(
+    private static async Task<MessageBrokerQueueSettings> AddDeaLetterForExhaustedRetries(
+        IChannel channel,
+        MessageBrokerQueueSettings queueSettings,
+        CancellationToken cancellationToken)
+    {
+        // Dead-letter queue for exhausted retries
+        var deadLetterSettings = new MessageBrokerQueueSettings()
+        {
+            Name = $"{queueSettings.Name}.dead",
+            BindKey = $"{queueSettings.BindKey}.dead",
+            UsePersistentStorage = queueSettings.UsePersistentStorage,
+            AutoDelete = queueSettings.AutoDelete,
+            EnableDeadLetter = false
+        };
+        
+        await channel.QueueDeclareAsync(
+            queue: deadLetterSettings.Name,
+            durable: deadLetterSettings.UsePersistentStorage,
+            exclusive: false,
+            autoDelete: deadLetterSettings.AutoDelete,
+            cancellationToken: cancellationToken,
+            arguments: null);
+
+        return deadLetterSettings;
+    }
+
+    private async Task CreateARetryWithDeadLetter(
+        IChannel channel,
+        MessageBrokerQueueSettings queueSettings,
+        MessageBrokerExchangeSettings deadLetterExchangeSettings,
+        CancellationToken cancellationToken)
+    {
+        // Retry queue with dead-letter on expiration
+        var retryQueue = $"{queueSettings.Name}.retry";
+        // When you declare a queue, you can specify an alternate exchange to handle such messages:
+        var retryArgs = new Dictionary<string, object?>
+        {
+            { "x-message-ttl", queueSettings.MessageTimeToLiveInMilliseconds }
+        };
+
+        if (queueSettings.EnableDeadLetter && !string.IsNullOrWhiteSpace(deadLetterExchangeSettings.Name))
+        {
+            var deadLetterQueueSettings =
+                await AddDeaLetterForExhaustedRetries(channel, queueSettings, cancellationToken);
+
+            await AddBindBetweenExchangeAndQueue(channel, deadLetterExchangeSettings.Name, deadLetterQueueSettings, cancellationToken);
+            
+            retryArgs.Add("x-dead-letter-exchange", deadLetterExchangeSettings.Name);
+            retryArgs.Add("x-dead-letter-routing-key", deadLetterQueueSettings.BindKey);
+        }
+
+        await channel.QueueDeclareAsync(
+            queue: retryQueue,
+            durable: queueSettings.UsePersistentStorage,
+            exclusive: false,
+            autoDelete: queueSettings.AutoDelete,
+            cancellationToken: cancellationToken,
+            arguments: retryArgs);
+    }
+
+    private static async Task<MessageBrokerExchangeSettings> CreateTheExchange(
         IChannel channel,
         MessageBrokerChannelSettings channelSettings,
         CancellationToken cancellationToken)
     {
         await channel.ExchangeDeclareAsync(
-            exchange: channelSettings.Name,
-            type: channelSettings.RoutingType.ToString().ToLowerInvariant(),
-            durable: channelSettings.UsePersistentStorage,
-            autoDelete: channelSettings.AutoDelete,
+            exchange: channelSettings.Exchange.Name,
+            type: channelSettings.Exchange.RoutingType.ToString().ToLowerInvariant(),
+            durable: channelSettings.Exchange.UsePersistentStorage,
+            autoDelete: channelSettings.Exchange.AutoDelete,
             cancellationToken: cancellationToken);
-        
+
         // TODO: Set exchange common arguments
         // alternate-exchange = Fallback exchange if no queue matches
+
+        return await CreateADeadLetterExchange(channel, channelSettings, cancellationToken);
+    }
+
+    private static async Task<MessageBrokerExchangeSettings> CreateADeadLetterExchange(
+        IChannel channel,
+        MessageBrokerChannelSettings channelSettings,
+        CancellationToken cancellationToken)
+    {
+        var deadLetter = new MessageBrokerExchangeSettings()
+        {
+            Name = $"{channelSettings.Exchange.Name}.dead",
+            RoutingType = RoutingType.Direct,
+            UsePersistentStorage = channelSettings.Exchange.UsePersistentStorage,
+            AutoDelete = false
+        };
+        await channel.ExchangeDeclareAsync(
+            exchange: deadLetter.Name,
+            type: deadLetter.RoutingType.ToString().ToLowerInvariant(),
+            durable: deadLetter.UsePersistentStorage,
+            autoDelete: deadLetter.AutoDelete,
+            cancellationToken: cancellationToken);
+
+        return deadLetter;
     }
 
     /// <summary>
-    /// In RabbitMQ, prefetch size (set via BasicQos) refers to the number of bytes of unacknowledged messages allowed per consumer before RabbitMQ stops delivering more.
+    /// In RabbitMQ, prefetch size (set via BasicQos) refers to the number of bytes of unacknowledged messages
+    /// allowed per consumer before RabbitMQ stops delivering more.
     /// How to Estimate a Good prefetchCount
     /// Instead of prefetchSize, calculate a good prefetch count based on:
     ///     prefetchCount = processingTimeInMs * throughputPerSecond

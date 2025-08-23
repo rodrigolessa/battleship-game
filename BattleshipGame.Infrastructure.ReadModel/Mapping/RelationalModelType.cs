@@ -4,7 +4,7 @@ namespace BattleshipGame.Infrastructure.ReadModel.Mapping;
 
 public class RelationalModelType
 {
-    public const int IdMaxLength = 35;
+    public const int IdMaxLength = 36;
     public const int OriginIdMaxLength = 50;
     public const string EnumType = "tinyint";
     public const string Tiny = "tinyint";

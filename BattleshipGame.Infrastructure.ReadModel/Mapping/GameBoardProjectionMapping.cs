@@ -10,7 +10,7 @@ public class GameBoardProjectionMapping : IEntityTypeConfiguration<GameBoardProj
 {
     public void Configure(EntityTypeBuilder<GameBoardProjection> builder)
     {
-        builder.ToTable("GameBoardProjection");
+        builder.ToTable("GameBoard", schema: "battleship");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id)
             .IsRequired()

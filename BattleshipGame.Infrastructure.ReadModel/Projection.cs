@@ -1,6 +1,6 @@
 namespace BattleshipGame.Infrastructure.ReadModel;
 
-public class Projection
+public abstract class Projection
 {
     public string Id { get; set; }
     public int AggregateVersion { get; set; }

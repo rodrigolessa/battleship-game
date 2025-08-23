@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using frm.Infrastructure.Messaging.Enumerations;
 
 namespace frm.Infrastructure.Messaging.Configurations;
 
+[ExcludeFromCodeCoverage]
 public class MessageBrokerSettings
 {
     public MessageBrokerSettings()
@@ -9,6 +11,8 @@ public class MessageBrokerSettings
         Channels = new List<MessageBrokerChannelSettings>();
         NonRetryableExceptionType = new List<string>();
     }
+
+    public static string SectionName => "MessageBrokerSettings";
 
     public required string HostName { get; set; }
     public required int HostPort { get; set; }

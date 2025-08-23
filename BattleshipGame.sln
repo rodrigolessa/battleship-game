@@ -91,6 +91,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2 - Deploy", "1.2 - Deploy", "{29616CFA-06CC-463A-8297-A827762DE9BA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2.1 - Docker", "1.2.1 - Docker", "{3AA16CE1-7CB8-486F-A393-FA22E4C4F062}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2.2 - Terraform", "1.2.2 - Terraform", "{964CD36C-333A-4C73-8023-434C4A6A46A4}"
 EndProject
