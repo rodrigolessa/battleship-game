@@ -6,9 +6,8 @@ public abstract class Command(
     string idempotencyKey,
     string aggregateId,
     string sessionKey,
-    string channelKey,
     string applicationKey,
     string sagaProcessKey,
     string userEmail = null!)
-    : BaseCommand(idempotencyKey, aggregateId, sessionKey, channelKey, applicationKey, sagaProcessKey, userEmail),
+    : MyBaseCommand(idempotencyKey, aggregateId, sessionKey, applicationKey, sagaProcessKey, userEmail),
         IRequest;

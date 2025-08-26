@@ -7,10 +7,9 @@ public interface IEvent
     string IdempotencyKey { get; set; }
     string AggregateId { get; set; }
     string SessionKey { get; set; }
-    // TODO: Move the channel name to the publisher method
-    string ChannelKey { get; set; }
     string ApplicationKey { get; set; }
     string SagaProcessKey { get; set; }
+    string CorrelationKey { get; set; }
     // TODO: Avoid primitive type implementing an email class
     string UserEmail { get; set; }
     DateTime EventCommittedTimestamp { get; set; }

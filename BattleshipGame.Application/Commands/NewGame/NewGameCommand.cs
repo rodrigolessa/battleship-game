@@ -8,7 +8,6 @@ public sealed class NewGameCommand(
     string idempotencyKey,
     GameId aggregateId,
     string sessionKey,
-    string channelKey,
     string applicationKey,
     string sagaProcessKey,
     PlayerId player1Id,
@@ -16,7 +15,7 @@ public sealed class NewGameCommand(
     PlayerId player2Id,
     string player2Name,
     string userEmail = null!)
-    : Command(idempotencyKey, aggregateId.ToString(), sessionKey, channelKey, applicationKey, sagaProcessKey,
+    : Command(idempotencyKey, aggregateId.ToString(), sessionKey, applicationKey, sagaProcessKey,
         userEmail)
 {
     public PlayerId Player1Id { get; set; } = player1Id;

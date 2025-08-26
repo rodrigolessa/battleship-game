@@ -2,6 +2,8 @@ using System.Text;
 using System.Text.Json;
 using frm.Infrastructure.Cqrs.Commands;
 using frm.Infrastructure.Messaging.Abstractions;
+using frm.Infrastructure.Messaging.Configurations;
+using frm.Infrastructure.Messaging.RabbitMqSettings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
@@ -10,60 +12,60 @@ namespace frm.Infrastructure.Messaging.RabbitMqPublisher;
 
 public class RabbitMqMessagePublisher : ICommandPublisher, IAsyncDisposable
 {
-    private readonly ConnectionFactory _factory;
+    private readonly MessageBrokerSettings _settings;
     private readonly ILogger<RabbitMqMessagePublisher> _logger;
-    private IConnection _connection;
-    private IChannel _channel;
-    
-    public RabbitMqMessagePublisher(IOptions<RabbitMQOptions> options, ILogger<RabbitMqMessagePublisher> logger)
+    private readonly IChannel _channel;
+    private readonly string _exchange;
+
+    public RabbitMqMessagePublisher(MessageBrokerSettings settings,
+        IRabbitMqConnectionManager connectionManager,
+        ILogger<RabbitMqMessagePublisher> logger)
     {
+        _settings = settings;
         _logger = logger;
-        _factory = new ConnectionFactory
-        {
-            HostName = options.Value.HostName,
-            Port = options.Value.Port,
-            UserName = options.Value.UserName,
-            Password = options.Value.Password
-        };
+        _channel = connectionManager.Channel;
+        _exchange = connectionManager.Exchange;
     }
-    
-    public async Task InitializeAsync()
-    {
-        _connection = await _factory.CreateConnectionAsync();
-        // TODO: Reuse IModel when possible — don’t open/close channels per message.
-        _channel = await _connection.CreateChannelAsync();
-    }
-    
-    public Task PublishAsync(IBaseCommand command, string channelKey = "", int? delayInSeconds = null,
+
+    public async Task PublishAsync(IBaseCommand command, string exchange, string route = "",
         CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task PublishAsync<T>(List<T> commands, string channelKey = "", int? delayInSeconds = null) where T : IBaseCommand
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task PublishAsync<T>(T message, string channelKey = "", CancellationToken cancellationToken = default)
-    {
-        var envelope = new MessageEnvelope<T>(message);
-        var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(envelope));
-        var props = new BasicProperties();
-
-
+        var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(command));
         await _channel.BasicPublishAsync(
-            exchange: "my_exchange",
-            routingKey: channelKey,
+            _exchange,
+            routingKey: route,
             mandatory: false,
-            basicProperties: props,
-            body: body,
+            body,
             cancellationToken);
-        
-        _logger.LogInformation("Published message: {MessageId} to {ChannelKey}", envelope.MessageId, channelKey);
+
+        _logger.LogInformation("Message {IdempotencyKey} published to {Route}", command.IdempotencyKey, route);
     }
 
-    public async Task ScheduleAsync<T>(T message, DateTime scheduledTimeUtc, string channelKey = "",
+    public Task PublishAsync<T>(List<T> commands, string exchange, string route = "", int? delayInSeconds = null)
+        where T : IBaseCommand
+    {
+        throw new NotImplementedException();
+    }
+
+    // public async Task PublishAsync<T>(T message, string exchange, string route = "", CancellationToken cancellationToken = default)
+    // {
+    //     var envelope = new MessageEnvelope<T>(message);
+    //     var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(envelope));
+    //     var props = new BasicProperties();
+    //
+    //
+    //     await _channel.BasicPublishAsync(
+    //         exchange: _exchange,
+    //         routingKey: route,
+    //         mandatory: false,
+    //         basicProperties: props,
+    //         body: body,
+    //         cancellationToken);
+    //     
+    //     _logger.LogInformation("Published message: {MessageId} to {ChannelKey}", envelope.MessageId, route);
+    // }
+
+    public async Task ScheduleAsync<T>(T message, DateTime scheduledTimeUtc, string exchange, string route = "",
         CancellationToken cancellationToken = default)
     {
         var delay = (int)(scheduledTimeUtc - DateTime.UtcNow).TotalMilliseconds;
@@ -76,10 +78,11 @@ public class RabbitMqMessagePublisher : ICommandPublisher, IAsyncDisposable
             Expiration = delay.ToString() // TTL in ms
         };
 
+        // TODO: Understand this concept of a new queue for delayed messages
         // Publish to a delay queue (with dead-letter to final queue)
         await _channel.BasicPublishAsync(
             exchange: "delayed_exchange",
-            routingKey: channelKey,
+            routingKey: route,
             mandatory: false,
             basicProperties: props,
             body: body,
@@ -90,7 +93,6 @@ public class RabbitMqMessagePublisher : ICommandPublisher, IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        _channel?.Dispose();
-        await _connection.DisposeAsync();
+        await _channel.DisposeAsync();
     }
 }

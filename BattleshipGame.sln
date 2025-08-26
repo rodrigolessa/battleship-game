@@ -115,6 +115,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleshipGame.Infrastructu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleshipGame.Hangfire", "BattleshipGame.Hangfire\BattleshipGame.Hangfire.csproj", "{EBCEF2D4-4025-4B8B-8CC6-FB56BF75DE03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "frm.Infrastructure.EventSourcingCqrs", "frm.Infrastructure.EventSourcingCqrs\frm.Infrastructure.EventSourcingCqrs.csproj", "{B391F4A4-D833-4D49-9876-5114BCF8B692}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -201,6 +203,10 @@ Global
 		{EBCEF2D4-4025-4B8B-8CC6-FB56BF75DE03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBCEF2D4-4025-4B8B-8CC6-FB56BF75DE03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBCEF2D4-4025-4B8B-8CC6-FB56BF75DE03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B391F4A4-D833-4D49-9876-5114BCF8B692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B391F4A4-D833-4D49-9876-5114BCF8B692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B391F4A4-D833-4D49-9876-5114BCF8B692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B391F4A4-D833-4D49-9876-5114BCF8B692}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F3DFF260-DA90-469A-8EF4-5F4EE5EDD29C} = {BEC279AB-F7BB-4144-9A58-F7FE6E501EBD}
@@ -246,5 +252,6 @@ Global
 		{F418ADF8-F609-4926-A8C9-BB0E4BC80187} = {F3DFF260-DA90-469A-8EF4-5F4EE5EDD29C}
 		{5F3C16D0-01EB-4D84-83A2-860F9541363C} = {F3DFF260-DA90-469A-8EF4-5F4EE5EDD29C}
 		{EBCEF2D4-4025-4B8B-8CC6-FB56BF75DE03} = {4AAFCCC7-4253-4980-8F5E-DD9264A1BEDB}
+		{B391F4A4-D833-4D49-9876-5114BCF8B692} = {F3DFF260-DA90-469A-8EF4-5F4EE5EDD29C}
 	EndGlobalSection
 EndGlobal

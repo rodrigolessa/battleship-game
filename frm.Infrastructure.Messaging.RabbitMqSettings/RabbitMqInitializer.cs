@@ -1,3 +1,4 @@
+using BattleshipGame.Infrastructure.Exceptions;
 using frm.Infrastructure.Messaging.Configurations;
 using frm.Infrastructure.Messaging.Enumerations;
 using Microsoft.Extensions.Hosting;
@@ -14,7 +15,7 @@ public class RabbitMqInitializer(MessageBrokerSettings settings) : IHostedServic
         if (string.IsNullOrWhiteSpace(settings.HostName) || settings.HostPort == 0 ||
             string.IsNullOrWhiteSpace(settings.UserName) || string.IsNullOrWhiteSpace(settings.UserPassword))
         {
-            return;
+            throw new ConfigurationErrorException("The message broker setting is missing or empty.");
         }
 
         var factory = new ConnectionFactory
@@ -154,7 +155,7 @@ public class RabbitMqInitializer(MessageBrokerSettings settings) : IHostedServic
             arguments: retryArgs);
     }
 
-    private static async Task<MessageBrokerExchangeSettings> CreateTheExchange(
+    public static async Task<MessageBrokerExchangeSettings> CreateTheExchange(
         IChannel channel,
         MessageBrokerChannelSettings channelSettings,
         CancellationToken cancellationToken)

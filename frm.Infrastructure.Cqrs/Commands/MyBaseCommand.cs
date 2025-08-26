@@ -1,31 +1,31 @@
 namespace frm.Infrastructure.Cqrs.Commands;
 
-public abstract class BaseCommand : IBaseCommand
+public abstract class MyBaseCommand : IBaseCommand
 {
     public string IdempotencyKey { get; set; }
     public string AggregateId { get; set; }
     public string SessionKey { get; set; }
-    public string ChannelKey { get; set; }
     public string ApplicationKey { get; set; }
     public string SagaProcessKey { get; set; }
+    public string CorrelationKey { get; set; }
     public string UserEmail { get; set; }
     public DateTime Timestamp { get; set; }
 
-    protected BaseCommand(
+    protected MyBaseCommand(
         string idempotencyKey,
         string aggregateId,
         string sessionKey,
-        string channelKey,
         string applicationKey,
+        string correlationId,
         string sagaProcessKey,
         string userEmail = "")
     {
         IdempotencyKey = idempotencyKey;
         AggregateId = aggregateId;
         SessionKey = sessionKey;
-        ChannelKey = channelKey;
         ApplicationKey = applicationKey;
         SagaProcessKey = sagaProcessKey;
+        CorrelationKey = correlationId;
         UserEmail = userEmail;
         Timestamp = DateTime.UtcNow;
         
