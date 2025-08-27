@@ -3,11 +3,12 @@ using MediatR;
 namespace frm.Infrastructure.Cqrs.Commands;
 
 public abstract class Command(
-    string idempotencyKey,
     string aggregateId,
+    string? idempotencyKey,
     string sessionKey,
-    string applicationKey,
-    string sagaProcessKey,
-    string userEmail = null!)
-    : MyBaseCommand(idempotencyKey, aggregateId, sessionKey, applicationKey, sagaProcessKey, userEmail),
+    string? correlationKey,
+    string? sagaProcessKey,
+    string? applicationKey,
+    string? userEmail = null!)
+    : MyBaseCommand(aggregateId, idempotencyKey, sessionKey, correlationKey, sagaProcessKey, applicationKey, userEmail),
         IRequest;
