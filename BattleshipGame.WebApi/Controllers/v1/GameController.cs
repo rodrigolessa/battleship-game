@@ -26,8 +26,8 @@ public class GameController : ControllerBase
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [Tags(nameof(InitGame))]
-    public async Task<IActionResult> InitGame(InitGameRequest request) =>
-        await _processor.Process<InitGameRequest, ObjectResult>(request);
+    public async Task<IActionResult> InitGame(InitGameRequest requestContextBundle) =>
+        await _processor.Process<InitGameRequest, ObjectResult>(requestContextBundle);
 
     [HttpPut("{gameId}/fire")]
     [Produces(MediaTypeNames.Application.Json)]

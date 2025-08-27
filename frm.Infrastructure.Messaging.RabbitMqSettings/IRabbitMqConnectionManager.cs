@@ -6,5 +6,5 @@ public interface IRabbitMqConnectionManager : IAsyncDisposable
 {
     IConnection Connection { get; }
     IChannel Channel { get; }
-    string Exchange { get; }
+    string PrimaryExchangeName { get; }
 }

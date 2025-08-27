@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BattleshipGame.Application\BattleshipGame.Application.csproj" />
+      <ProjectReference Include="..\frm.Infrastructure.Messaging.RabbitMqPublisher\frm.Infrastructure.Messaging.RabbitMqPublisher.csproj" />
       <ProjectReference Include="..\frm.Infrastructure.Messaging.RabbitMqSettings\frm.Infrastructure.Messaging.RabbitMqSettings.csproj" />
     </ItemGroup>
 

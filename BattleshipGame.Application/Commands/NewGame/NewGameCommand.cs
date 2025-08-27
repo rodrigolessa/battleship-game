@@ -5,17 +5,22 @@ using frm.Infrastructure.Cqrs.Commands;
 namespace BattleshipGame.Application.Commands.NewGame;
 
 public sealed class NewGameCommand(
-    string idempotencyKey,
     GameId aggregateId,
-    string sessionKey,
-    string applicationKey,
-    string sagaProcessKey,
     PlayerId player1Id,
     string player1Name,
     PlayerId player2Id,
     string player2Name,
-    string userEmail = null!)
-    : Command(idempotencyKey, aggregateId.ToString(), sessionKey, applicationKey, sagaProcessKey,
+    string? idempotencyKey,
+    string? correlationKey,
+    string? sagaProcessKey,
+    string? applicationKey,
+    string? userEmail = null!)
+    : Command(aggregateId.ToString(),
+        idempotencyKey,
+        sessionKey: aggregateId.ToString(),
+        correlationKey,
+        sagaProcessKey,
+        applicationKey,
         userEmail)
 {
     public PlayerId Player1Id { get; set; } = player1Id;

@@ -16,7 +16,7 @@ public sealed class RabbitMqConnectionManager : BackgroundService, IRabbitMqConn
 
     public IConnection Connection => _connection?? throw new InvalidOperationException("RabbitMQ connection is not initialized.");
     public IChannel Channel => _channel?? throw new InvalidOperationException("RabbitMQ channel is not initialized.");
-    public string Exchange => _exchange;
+    public string PrimaryExchangeName => _exchange;
     
 
     public RabbitMqConnectionManager(MessageBrokerSettings settings)
