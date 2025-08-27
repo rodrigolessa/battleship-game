@@ -2,41 +2,48 @@ namespace frm.Infrastructure.Cqrs.Commands;
 
 public abstract class MyBaseCommand : IBaseCommand
 {
-    public string IdempotencyKey { get; set; }
     public string AggregateId { get; set; }
+    public string IdempotencyKey { get; set; }
     public string SessionKey { get; set; }
-    public string ApplicationKey { get; set; }
+    public string? CorrelationKey { get; set; }
     public string SagaProcessKey { get; set; }
-    public string CorrelationKey { get; set; }
-    public string UserEmail { get; set; }
+    public string? ApplicationKey { get; set; }
+    public string? UserEmail { get; set; }
     public DateTime Timestamp { get; set; }
 
     protected MyBaseCommand(
-        string idempotencyKey,
         string aggregateId,
+        string? idempotencyKey,
         string sessionKey,
-        string applicationKey,
-        string correlationId,
-        string sagaProcessKey,
-        string userEmail = "")
+        string? correlationId,
+        string? sagaProcessKey,
+        string? applicationKey,
+        string? userEmail = null!)
     {
-        IdempotencyKey = idempotencyKey;
         AggregateId = aggregateId;
         SessionKey = sessionKey;
-        ApplicationKey = applicationKey;
-        SagaProcessKey = sagaProcessKey;
         CorrelationKey = correlationId;
+        ApplicationKey = applicationKey;
         UserEmail = userEmail;
         Timestamp = DateTime.UtcNow;
         
-        SetIdempotencyKey();
+        SetIdempotencyKey(idempotencyKey);
+        SetSagaProcessKey(sagaProcessKey);
     }
 
-    private void SetIdempotencyKey()
+    private void SetIdempotencyKey(string? idempotencyKey)
     {
-        if (string.IsNullOrWhiteSpace(IdempotencyKey))
+        if (string.IsNullOrWhiteSpace(idempotencyKey))
         {
             IdempotencyKey = BaseCommandIdempotencyKey.New().ToString();
+        }
+    }
+    
+    private void SetSagaProcessKey(string? sagaProcessKey)
+    {
+        if (string.IsNullOrWhiteSpace(sagaProcessKey))
+        {
+            SagaProcessKey = BaseCommandIdempotencyKey.New().ToString();
         }
     }
 }

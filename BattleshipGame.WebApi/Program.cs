@@ -1,4 +1,5 @@
 using BattleshipGame.Infrastructure.IoC.Configurations;
+using BattleshipGame.Infrastructure.RequestsContext;
 using BattleshipGame.WebApi.Contracts.v1.Requests.InitGame;
 using BattleshipGame.WebApi.RequestProcessor;
 using FluentValidation.AspNetCore;
@@ -36,20 +37,22 @@ builder.Services.AddQueryValidators();
 // CQRS - Queries
 builder.Services.AddQueryHandlers();
 
-// Message Broker
+// CQRS - Request Context Bundle
+builder.Services.AddRequestContextHandlers();
+
+// Message Broker Settings
 // Create the exchange needed for API send the messages
-builder.Services.AddRabbitMq(builder.Configuration);
+builder.Services.ConnectOrCreateRabbitMqExchange(builder.Configuration);
 
-// Storage
-
+// Persistent Storage for Event Sourcing and Read Model
 // builder.Services.AddStorage(Configuration);
 
 // TODO: Uncomment to validate game status
 // builder.Services.AddHostedService<EndGameBackgroundService>();
 
-// Caching
+// Caching layer to improve performance
 // TODO: What strategy fit for our project? 
-// TODO: Implement a Bloom Filter Algorithm
+// TODO: Is it necessary implement a Bloom Filter Algorithm?
 //builder.Services.AddRedis(Configuration);
 
 // Serialization
@@ -87,9 +90,11 @@ if (app.Environment.IsDevelopment())
 // app.UseLogInterceptor();
 
 // app.UseMiddleware<TimeElapsedHeaderMiddleware>();
+app.UseMiddleware<RequestContextMiddleware>();
 
 // app.UseRouting();
 
+// Authorization and Authentication using Keycloak
 app.UseAuthorization();
 
 // app.ConfigureCors(Configuration);

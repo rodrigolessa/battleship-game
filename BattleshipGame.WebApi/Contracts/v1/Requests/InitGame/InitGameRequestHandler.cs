@@ -23,20 +23,21 @@ public class InitGameRequestHandler : IInitGameRequestHandler
         var playerOneId = PlayerId.New();
         var playerTwoId = PlayerId.New();
         var command = new NewGameCommand(
-            request.IdempotencyKey,
             gameId,
-            string.Empty,
-            string.Empty,
-            string.Empty,
             playerOneId,
             request.Player1,
             playerTwoId,
-            request.Player2) { };
+            request.Player2,
+            request.IdempotencyKey,
+            request.CorrelationKey,
+            request.SagaProcessKey,
+            request.ClientApplication,
+            request.UserEmail
+            ) { };
 
         // TODO: Move the responsibility for choosing the channel to the messaging package
-        await _commandPublisher.PublishAsync(command, 
-            MessageBrokerConstants.Exchange,
-            MessageBrokerConstants.NewGameRoute, cancellationToken);
+        // TODO: Add a property in the MessageBrokerSettings to map commands to their respective binds
+        await _commandPublisher.PublishAsync(command, "", MessageBrokerConstants.NewGameRoute, cancellationToken);
 
         var newGameInfo = new NewGameInfoResponse(command.IdempotencyKey, gameId, playerOneId, playerTwoId);
 
