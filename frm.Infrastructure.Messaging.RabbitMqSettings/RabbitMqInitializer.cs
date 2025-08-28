@@ -10,6 +10,7 @@ public class RabbitMqInitializer(MessageBrokerSettings settings) : IHostedServic
 {
     private IConnection? _connection;
 
+    // TODO: Refactor to use the ConnectionManager instead of open its own connection and channel
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(settings.HostName) || settings.HostPort == 0 ||
@@ -65,7 +66,7 @@ public class RabbitMqInitializer(MessageBrokerSettings settings) : IHostedServic
     /// <param name="channel"></param>
     /// <param name="channelSettings"></param>
     /// <param name="cancellationToken"></param>
-    private static async Task SetUnackedMessageLimit(
+    public static async Task SetUnackedMessageLimit(
         IChannel channel,
         MessageBrokerChannelSettings channelSettings,
         CancellationToken cancellationToken)

@@ -1,5 +1,4 @@
 using System.Text;
-using frm.Infrastructure.Messaging.Configurations;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -13,7 +12,8 @@ public class RabbitMqMessageReceiver
     private readonly string _bindKey;
     private readonly int _maxRetries;
 
-    public RabbitMqMessageReceiver(IChannel channel, string exchangeName, string queueName, string bindKey, int maxRetries = 3)
+    public RabbitMqMessageReceiver(IChannel channel, string exchangeName, string queueName, string bindKey,
+        int maxRetries = 3)
     {
         _channel = channel;
         _exchangeName = exchangeName;
@@ -29,12 +29,30 @@ public class RabbitMqMessageReceiver
 
         consumer.ReceivedAsync += async (model, ea) =>
         {
+            // var messageType = Encoding.UTF8.GetString((byte[])ea.BasicProperties.Headers["MessageType"]);
+            // var type = Type.GetType(messageType);
+            //
+            // if (type == null)
+            // {
+            //     _logger.LogError("Unknown message type: {Type}", messageType);
+            //     _channel.BasicNack(ea.DeliveryTag, false, false);
+            //     return;
+            // }
+            //
+            // var json = Encoding.UTF8.GetString(ea.Body.ToArray());
+            // var command = (BaseCommand)JsonSerializer.Deserialize(json, type);
+            //
+            
             var body = ea.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
 
             try
             {
-                await handleMessageAsync(message);
+                // using var scope = _serviceProvider.CreateScope();
+                // var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                //
+                // await mediator.Send(command, stoppingToken);
+                //await handleMessageAsync(message);
                 await _channel.BasicAckAsync(ea.DeliveryTag, false, cancellationToken);
             }
             catch (Exception ex)

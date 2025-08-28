@@ -6,11 +6,15 @@ using BattleshipGame.Worker;
 var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddSingleton<IClock, MyClock>();
-builder.Services.AddHostedService<Worker>();
+
+// TODO: Mapping commands to its handlers
 
 // Message Broker
 // Create all resources: exchange, queues and binds
-builder.Services.AddRabbitMq(builder.Configuration);
+builder.Services.SetMessageBrokerSettings(builder.Configuration);
+builder.Services.CreateAllNecessaryRabbitMqInfrastructure(builder.Configuration);
+
+//builder.Services.AddHostedService<Worker>();
 
 var host = builder.Build();
 host.Run();

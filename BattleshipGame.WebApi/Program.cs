@@ -42,7 +42,8 @@ builder.Services.AddRequestContextHandlers();
 
 // Message Broker Settings
 // Create the exchange needed for API send the messages
-builder.Services.ConnectOrCreateRabbitMqExchange(builder.Configuration);
+builder.Services.SetMessageBrokerSettings(builder.Configuration);
+builder.Services.ConnectOrCreateRabbitMqExchangeForPublishMessages(builder.Configuration);
 
 // Persistent Storage for Event Sourcing and Read Model
 // builder.Services.AddStorage(Configuration);

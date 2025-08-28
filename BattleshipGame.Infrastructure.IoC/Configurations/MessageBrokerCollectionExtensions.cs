@@ -9,26 +9,39 @@ namespace BattleshipGame.Infrastructure.IoC.Configurations;
 
 public static class MessageBrokerCollectionExtensions
 {
-    public static void AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
+    public static void SetMessageBrokerSettings(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
-        var messageBrokerSettings = configuration.GetSection(MessageBrokerSettings.SectionName).Get<MessageBrokerSettings>();
+        var messageBrokerSettings = configuration
+            .GetSection(MessageBrokerSettings.SectionName)
+            .Get<MessageBrokerSettings>();
+        // TODO: Define a basic default settings
         services.AddSingleton(messageBrokerSettings);
-        
-        // Bind configuration
-        //services.Configure<MessageBrokerSettings>(configuration.GetSection("MessageBrokerSettings"));
-        
-        // Register initializer
-        // RabbitMQ doesn't have the concept of subscriber. There is no topic or queue, the communication is through an exchange
-        services.AddHostedService<RabbitMqInitializer>();
     }
 
-    public static void ConnectOrCreateRabbitMqExchange(this IServiceCollection services, IConfiguration configuration)
+    /// <summary>
+    /// RabbitMQ doesn't have the concept of subscriber for topic or queue, the communication is through an exchange
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    public static void ConnectOrCreateRabbitMqExchangeForPublishMessages(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
-        var messageBrokerSettings = configuration.GetSection(MessageBrokerSettings.SectionName).Get<MessageBrokerSettings>();
-        services.AddSingleton(messageBrokerSettings);
-        
+        // RabbitMqConnectionManager, establish connection to create exchange, and it is used inside the publisher class
         services.AddSingleton<IRabbitMqConnectionManager, RabbitMqConnectionManager>();
-        services.AddHostedService(provider => (RabbitMqConnectionManager)provider.GetRequiredService<IRabbitMqConnectionManager>());
+        services.AddHostedService(provider =>
+            (RabbitMqConnectionManager)provider.GetRequiredService<IRabbitMqConnectionManager>());
+
         services.AddSingleton<ICommandPublisher, RabbitMqMessagePublisher>();
+    }
+
+    public static void CreateAllNecessaryRabbitMqInfrastructure(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        // Register background service to create exchange, queues and binds
+        services.AddHostedService<RabbitMqInitializer>();
     }
 }

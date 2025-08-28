@@ -10,4 +10,9 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1"/>
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\frm.Infrastructure.Messaging.RabbitMqPublisher\frm.Infrastructure.Messaging.RabbitMqPublisher.csproj" />
+      <ProjectReference Include="..\frm.Infrastructure.Messaging.RabbitMqSettings\frm.Infrastructure.Messaging.RabbitMqSettings.csproj" />
+    </ItemGroup>
 </Project>

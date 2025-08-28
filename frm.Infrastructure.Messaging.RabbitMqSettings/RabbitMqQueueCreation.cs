@@ -15,6 +15,7 @@ public static class RabbitMqQueueCreation
 
         foreach (var queue in channelSettings.Queues)
         {
+            await DeclareDeadLetterQueueForExhaustedRetries(channel, deadLetterExchangeName, queue, cancellationToken);
             
             // Exchange to route/redirect expired, rejected or failures messages
             var retryArgs = new Dictionary<string, object?>
@@ -22,8 +23,12 @@ public static class RabbitMqQueueCreation
                 { "x-dead-letter-exchange", deadLetterExchangeName },
                 { "x-dead-letter-routing-key", queue.BindKey }
             };
+            // TODO: Set queue common arguments
+            // x-message-ttl = TTL (Time-to-Live) for each message (in ms)
+            // x-max-priority = Enable message priorities (0–255)
+            // x-queue-mode = Set lazy for disk-based queues
 
-            // Main Queue
+            // Main Queue creation
             await channel.QueueDeclareAsync(
                 queue: queue.Name,
                 durable: queue.UsePersistentStorage,
@@ -35,15 +40,9 @@ public static class RabbitMqQueueCreation
             await AddBindBetweenExchangeAndQueue(channel, mainExchangeName, queue.Name, queue.BindKey,
                 cancellationToken);
 
-            // TODO: Set queue common arguments
-            // x-message-ttl = TTL (Time-to-Live) for each message (in ms)
-            // x-dead-letter-routing-key = Routing key for DLX messages
-            // x-max-priority = Enable message priorities (0–255)
-            // x-queue-mode = Set lazy for disk-based queues
-
             await DeclareQueueForRetries(channel, mainExchangeName, retryExchangeName, queue, cancellationToken);
             
-            await DeclareDeadLetterQueueForExhaustedRetries(channel, deadLetterExchangeName, queue, cancellationToken);
+            // TODO: Start consuming messages here
         }
     }
 
