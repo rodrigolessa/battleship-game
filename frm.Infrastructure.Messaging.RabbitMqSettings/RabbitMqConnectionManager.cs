@@ -49,7 +49,7 @@ public sealed class RabbitMqConnectionManager : BackgroundService, IRabbitMqConn
         _channel = await _connection.CreateChannelAsync(cancellationToken: stoppingToken);
         
         // Make sure the exchange exists
-        await RabbitMqInitializer.CreateTheExchange(_channel, _channelSettings, stoppingToken);
+        await RabbitMqExchangeCreation.CreateExchanges(_channel, _channelSettings, stoppingToken);
     }
 
     public async ValueTask DisposeAsync()
