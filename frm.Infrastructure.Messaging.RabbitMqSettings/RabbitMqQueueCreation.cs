@@ -10,14 +10,16 @@ public static class RabbitMqQueueCreation
         CancellationToken cancellationToken)
     {
         var mainExchangeName = channelSettings.Exchange.Name;
+        var retryExchangeName = RabbitMqExchangeCreation.GetRetryExchangeName(mainExchangeName);
+        var deadLetterExchangeName = RabbitMqExchangeCreation.GetDeadLetterExchangeName(mainExchangeName);
 
         foreach (var queue in channelSettings.Queues)
         {
-            var retryExchangeName = RabbitMqExchangeCreation.GetRetryExchangeName(mainExchangeName);
+            
             // Exchange to route/redirect expired, rejected or failures messages
             var retryArgs = new Dictionary<string, object?>
             {
-                { "x-dead-letter-exchange", retryExchangeName },
+                { "x-dead-letter-exchange", deadLetterExchangeName },
                 { "x-dead-letter-routing-key", queue.BindKey }
             };
 
@@ -40,8 +42,7 @@ public static class RabbitMqQueueCreation
             // x-queue-mode = Set lazy for disk-based queues
 
             await DeclareQueueForRetries(channel, mainExchangeName, retryExchangeName, queue, cancellationToken);
-
-            var deadLetterExchangeName = RabbitMqExchangeCreation.GetDeadLetterExchangeName(mainExchangeName);
+            
             await DeclareDeadLetterQueueForExhaustedRetries(channel, deadLetterExchangeName, queue, cancellationToken);
         }
     }
