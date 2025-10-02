@@ -18,6 +18,11 @@ Battleship Game engine with Event Sourcing and C#
 - Event Source
 - Outbox Pattern
 - [Transactional outbox] (https://microservices.io/patterns/data/transactional-outbox.html)
+- Mediator (with MediatR)
+  - Organize code around use cases with requests and handlers
+  - Cross-cutting concerns with pipeline behaviors
+  - Thin API endpoints (avoiding fat endpoints)
+  - Design highly-testable handlers
 
 ### Most Common filters
 Mechanism to intercept and modify the execution of a request pipeline;
