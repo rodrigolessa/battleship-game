@@ -18,6 +18,11 @@ Battleship Game engine with Event Sourcing and C#
 - Event Source
 - Outbox Pattern
 - [Transactional outbox] (https://microservices.io/patterns/data/transactional-outbox.html)
+- Mediator (with MediatR)
+  - Organize code around use cases with requests and handlers
+  - Cross-cutting concerns with pipeline behaviors
+  - Thin API endpoints (avoiding fat endpoints)
+  - Design highly-testable handlers
 
 ### Most Common filters
 Mechanism to intercept and modify the execution of a request pipeline;
@@ -42,6 +47,7 @@ Useful for concerns like:
 
 - For Scheduled Delivery. Needs Delayed Message Plugin
 - Ordered Queues / Sessions. FIFO within queue; limited session-like behavior via x-group-id or custom logic
+- Simulate RabbitMQ behavior with https://tryrabbitmq.com/
 
 #### Start RabbitMQ Locally
 
@@ -79,14 +85,13 @@ dotnet add package NATS.Client.Core
 - Streaming Support -> **JetStream** built-in;
 - Active Development -> Actively improved;
 
-
 ### Best Practices for Reducing Message Size
 
 - Minimize Payload – Only send essential fields (command and executeAt);
 - Use Binary Format – Instead of JSON, use **ProtoBuf* for smaller payloads;
 - Dedicated Subjects – Use subjects like scheduled.jobs.destroygame for specific tasks to reduce unnecessary processing;
 
-#### Why Protobuf is Better?
+#### How is Protobuf Better?
 
 - Smaller Size - Protobuf messages are compact and efficient;
 - Faster Serialization - Binary format is much faster than JSON;

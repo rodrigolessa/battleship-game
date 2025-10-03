@@ -24,9 +24,14 @@
 
     <ItemGroup>
       <Folder Include="Authentication\Requests\" />
-      <Folder Include="Cqrs\Abstractions\" />
-      <Folder Include="Logging\" />
-      <Folder Include="Validators\" />
+    </ItemGroup>
+
+
+
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\frm.Infrastructure.Cqrs\frm.Infrastructure.Cqrs.csproj" />
     </ItemGroup>
 
 

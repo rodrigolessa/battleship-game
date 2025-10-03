@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using BattleshipGame.Infrastructure.Models;
 using BattleshipGame.Models.Enumerations;
 using BattleshipGame.Models.ValueObjects;
 using Humanizer;
@@ -14,7 +13,7 @@ public class Panel
     public OccupationType OccupationType { get; set; }
     public Coordinates Coordinates { get; set; }
 
-    public Panel(int row, int column)
+    public Panel(short row, short column)
     {
         Coordinates = new Coordinates(row, column);
         OccupationType = OccupationType.Empty;

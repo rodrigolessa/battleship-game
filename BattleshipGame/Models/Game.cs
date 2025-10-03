@@ -1,5 +1,5 @@
-using BattleshipGame.Infrastructure.Models;
 using BattleshipGame.Models.Entities;
+using frm.Infrastructure.EventSourcing.Models;
 using StronglyTypedIds;
 
 namespace BattleshipGame.Models;
@@ -7,16 +7,14 @@ namespace BattleshipGame.Models;
 [StronglyTypedId]
 public partial struct GameId {}
 
-public class Game : AggregateRoot
+public sealed class Game : AggregateRoot
 {
-    public const string DefaultNameForPlayer1 = "PlayerOne";
-    public const string DefaultNameForPlayer2 = "PlayerTwo";
-        
-    public GameId Id { get; set; }
-    public Player Player1 { get; set; }
-    public Player Player2 { get; set; }
-    
-    public Game() { }
+    private const string DefaultNameForPlayer1 = "PlayerOne";
+    private const string DefaultNameForPlayer2 = "PlayerTwo";
+
+    public GameId Id { get; private set; }
+    public Player Player1 { get; private set; } = new(DefaultNameForPlayer1);
+    public Player Player2 { get; private set; } = new(DefaultNameForPlayer2);
 
     public void PlayRound() { }
 

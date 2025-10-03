@@ -16,7 +16,11 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5117",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MessageBrokerSettings__HostName": "127.0.0.1",
+        "MessageBrokerSettings__HostPort": "5672",
+        "MessageBrokerSettings__UserName": "user",
+        "MessageBrokerSettings__UserPassword": "MyStrongP@ssword"
       }
     },
     "https": {

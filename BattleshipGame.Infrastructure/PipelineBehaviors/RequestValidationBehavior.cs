@@ -1,7 +1,7 @@
-using BattleshipGame.Infrastructure.Cqrs.Commands;
-using BattleshipGame.Infrastructure.Cqrs.Queries;
 using BattleshipGame.Infrastructure.Exceptions;
 using FluentValidation;
+using frm.Infrastructure.Cqrs.Commands;
+using frm.Infrastructure.Cqrs.Queries;
 using MediatR;
 
 namespace BattleshipGame.Infrastructure.PipelineBehaviors;

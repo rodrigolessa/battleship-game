@@ -8,21 +8,31 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="CommandHandlers\" />
-      <Folder Include="EventHandlers\" />
-      <Folder Include="Models\" />
       <Folder Include="Services\" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BattleshipGame.Infrastructure.Persistence\BattleshipGame.Infrastructure.Persistence.csproj" />
-      <ProjectReference Include="..\BattleshipGame.Infrastructure.ReadModel\BattleshipGame.Infrastructure.ReadModel.csproj" />
       <ProjectReference Include="..\BattleshipGame.Infrastructure\BattleshipGame.Infrastructure.csproj" />
       <ProjectReference Include="..\BattleshipGame\BattleshipGame.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="NATS.Client.Core" Version="2.6.1" />
+      <None Remove="appsettings.json" />
+      <Content Include="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
+
+    <Target Name="appsettings" BeforeTargets="Build">
+        <Message Text="coping appsettings" Importance="high" />
+
+        <Exec Command="cp -f appsettings*.json ../BattleshipGame.WebApi" Condition="$([MSBuild]::IsOSPlatform('Linux')) == true" />
+        <Exec Command="cp -f appsettings*.json ../BattleshipGame.Worker" Condition="$([MSBuild]::IsOSPlatform('Linux')) == true" />
+        <Exec Command="cp -f appsettings*.json ../BattleshipGame.Hangfire" Condition="$([MSBuild]::IsOSPlatform('Linux')) == true" />
+
+        <Exec Command="copy appsettings*.json ..\BattleshipGame.Api" Condition="$([MSBuild]::IsOSPlatform('Linux')) == false" />
+        <Exec Command="copy appsettings*.json ..\BattleshipGame.Worker" Condition="$([MSBuild]::IsOSPlatform('Linux')) == false" />
+        <Exec Command="copy appsettings*.json ..\BattleshipGame.Hangfire" Condition="$([MSBuild]::IsOSPlatform('Linux')) == false" />
+    </Target>
 
 </Project>

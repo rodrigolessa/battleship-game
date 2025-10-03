@@ -1,4 +1,4 @@
-using BattleshipGame.Infrastructure.Models;
+using frm.Infrastructure.EventSourcing.Models;
 using StronglyTypedIds;
 
 namespace BattleshipGame.Models.Entities.Boards;
@@ -14,9 +14,9 @@ public class GameBoard : Entity
     public GameBoard()
     {
         Panels = new List<Panel>();
-        for (int i = 1; i <= 10; i++)
+        for (short i = 1; i <= 10; i++)
         {
-            for (int j = 1; j <= 10; j++)
+            for (short j = 1; j <= 10; j++)
             {
                 Panels.Add(new Panel(i, j));
             }
