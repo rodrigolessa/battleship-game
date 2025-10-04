@@ -105,8 +105,6 @@ dotnet add package NATS.Client.Core
 
 ## Structure
 
-# battleship-game
-
 ```mermaid flowchart
 %% C4 Container Diagram
 C4Container
