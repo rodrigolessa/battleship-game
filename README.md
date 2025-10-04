@@ -1,6 +1,6 @@
-# battleship-game
+# Battleship Game Project
 
-Battleship Game engine with Event Sourcing and C#
+Battleship Game engine with Event Sourcing, CQRS and C#
 
 ## Dependencies
 
@@ -102,3 +102,30 @@ dotnet add package NATS.Client.Core
 - Implement retries and failure handling;
 - Add logging and monitoring;
 - Use NATS JetStream if message persistence is needed;
+
+## Structure
+
+# battleship-game
+
+<pre> ```mermaid flowchart
+%% C4 Container Diagram
+C4Container
+
+title Distributed Architecture - API & Worker
+
+Person(user, "Client Application", "Consumes the API")
+
+System_Boundary(system, "Distributed System") {
+    Container(api, "API", "ASP.NET Core", "Handles synchronous requests, queries SQL Database, and publishes messages to Service Bus queue.")
+    Container(worker, "Worker", ".NET Worker Service", "Processes messages from Service Bus and publishes public events to another topic.")
+    ContainerDb(db, "SQL Database", "Azure SQL", "Stores application data queried by the API.")
+    ContainerQueue(queue, "Internal Queue", "Azure Service Bus Queue", "Receives messages from the API for asynchronous processing.")
+    Container(topic, "Public Topic", "Azure Service Bus Topic", "Publishes public domain events for other services to consume.")
+}
+
+Rel(user, api, "Sends synchronous HTTP requests")
+Rel(api, db, "Reads data from", "SQL Queries")
+Rel(api, queue, "Publishes messages to", "Service Bus")
+Rel(worker, queue, "Consumes messages from", "Service Bus")
+Rel(worker, topic, "Publishes domain events", "Service Bus Topic")
+``` </pre>
