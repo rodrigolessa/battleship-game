@@ -107,7 +107,7 @@ dotnet add package NATS.Client.Core
 
 # battleship-game
 
-<pre> ```mermaid flowchart
+```mermaid flowchart
 %% C4 Container Diagram
 C4Container
 
@@ -128,4 +128,4 @@ Rel(api, db, "Reads data from", "SQL Queries")
 Rel(api, queue, "Publishes messages to", "Service Bus")
 Rel(worker, queue, "Consumes messages from", "Service Bus")
 Rel(worker, topic, "Publishes domain events", "Service Bus Topic")
-``` </pre>
+```
