@@ -1,6 +1,5 @@
+using BattleshipGame.WebApi.Contracts.v1.Responses;
 using frm.Infrastructure.Cqrs.Requests;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BattleshipGame.WebApi.Contracts.v1.Requests.InitGame;
 

@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using MediatR;
 
-namespace BattleshipGame.WebApi.RequestProcessor;
+namespace frm.Infrastructure.Cqrs.Requests;
 
 [ExcludeFromCodeCoverage]
 public class RequestProcessor : IRequestProcessor

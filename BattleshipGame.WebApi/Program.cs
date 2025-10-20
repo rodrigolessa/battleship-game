@@ -1,10 +1,9 @@
 using BattleshipGame.Infrastructure.IoC.Configurations;
 using BattleshipGame.Infrastructure.RequestsContext;
 using BattleshipGame.WebApi.Contracts.v1.Requests.InitGame;
-using BattleshipGame.WebApi.RequestProcessor;
-using FluentValidation.AspNetCore;
+using BattleshipGame.WebApi.Contracts.v1.Responses;
+using frm.Infrastructure.Cqrs.Requests;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 

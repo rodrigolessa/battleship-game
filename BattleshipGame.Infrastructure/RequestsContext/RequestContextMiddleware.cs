@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-
 namespace BattleshipGame.Infrastructure.RequestsContext;
 
 public class RequestContextMiddleware

@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace BattleshipGame.WebApi.RequestProcessor;
+namespace frm.Infrastructure.Cqrs.Requests;
 
 public interface ICommandRequest<out TResponse> : IRequest<TResponse>
 {
