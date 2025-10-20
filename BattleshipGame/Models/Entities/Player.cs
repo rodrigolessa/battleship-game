@@ -5,9 +5,6 @@ using StronglyTypedIds;
 
 namespace BattleshipGame.Models.Entities;
 
-[StronglyTypedId]
-public partial struct PlayerId {}
-
 public class Player : Entity
 {
     public const int MaxLengthOfPlayerName = 50;

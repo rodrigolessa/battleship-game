@@ -35,7 +35,7 @@ public abstract class MyBaseCommand : IBaseCommand
     {
         if (string.IsNullOrWhiteSpace(idempotencyKey))
         {
-            IdempotencyKey = BaseCommandIdempotencyKey.New().ToString();
+            IdempotencyKey = Ulid.NewUlid().ToString();
         }
     }
     
@@ -43,7 +43,7 @@ public abstract class MyBaseCommand : IBaseCommand
     {
         if (string.IsNullOrWhiteSpace(sagaProcessKey))
         {
-            SagaProcessKey = BaseCommandIdempotencyKey.New().ToString();
+            SagaProcessKey = Ulid.NewUlid().ToString();
         }
     }
 }

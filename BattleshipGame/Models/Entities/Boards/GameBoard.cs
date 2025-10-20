@@ -3,9 +3,6 @@ using StronglyTypedIds;
 
 namespace BattleshipGame.Models.Entities.Boards;
 
-[StronglyTypedId(Template.Guid)]
-public partial struct GameBoardId {}
-
 public class GameBoard : Entity
 {
     public GameBoardId Id { get; set; }
