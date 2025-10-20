@@ -6,6 +6,7 @@ public interface IBaseCommand
     string AggregateId { get; set; }
     string IdempotencyKey { get; set; }
     string SessionKey { get; set; }
+    string RouteKey { get; set; }
     string? CorrelationKey { get; set; }
     string SagaProcessKey { get; set; }
     string? ApplicationKey { get; set; }
