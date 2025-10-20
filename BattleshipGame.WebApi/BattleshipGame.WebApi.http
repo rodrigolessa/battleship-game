@@ -1,0 +1,4 @@
+@BattleAddress = http://localhost:5224
+
+GET {{BattleAddress}}/weatherforecast/
+Accept: application/json
