@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApiVersioning( options => options.ReportApiVersions = true );
 
 // Add services to the container.
-builder.Services.AddScoped<IRequestHandler<InitGameRequest, ObjectResult>, InitGameRequestHandler>();
+builder.Services.AddScoped<IRequestHandler<InitGameRequest, NewGameInfoResponse>, InitGameRequestHandler>();
 builder.Services.AddScoped<IRequestProcessor, RequestProcessor>();
 builder.Services.AddScoped<IMediator, Mediator>();
 
@@ -29,7 +29,7 @@ builder.Services.AddScoped<IMediator, Mediator>();
 //builder.Services.AddSingleton<ICommandScheduler, CommandScheduler>();
 
 // Validators
-builder.Services.AddFluentValidationAutoValidation();
+//builder.Services.AddFluentValidationAutoValidation(); // Deprecated
 //builder.Services.AddValidatorsFromAssemblyContaining(Assembly.Get.GetExecutingAssembly());
 builder.Services.AddQueryValidators();
 
