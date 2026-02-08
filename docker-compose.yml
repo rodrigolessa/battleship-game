@@ -10,3 +10,30 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: MyStrongP@ssword
+      
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_NOAUTHENTICATION=true
+    ports:
+      - "5341:80"    # UI
+      - "4317:4317"  # OTLP gRPC endpoint
+    volumes:
+      - seq-data:/data
+
+  battleship-api:
+    build: ./src/BattleshipGame.WebApi
+    container_name: battleship-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://seq:4317
+      - OTEL_SERVICE_NAME=battleship-api
+    depends_on:
+      - seq
+    ports:
+      - "5000:8080"
+
+volumes:
+  seq-data:
