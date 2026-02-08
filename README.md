@@ -10,6 +10,13 @@ Battleship Game engine with Event Sourcing and C#
 - Sqids - Obfuscate Numbers;
 - Mapperly - .NET source generator for generating object mappings;
 
+### Servers
+
+- Seq - is a centralized structured logging and observability server
+- Redis
+- RabbitMQ
+- MS SQL Server
+
 ## Architecture
 
 ### Patterns
@@ -45,34 +52,22 @@ Useful for concerns like:
 
 ### RabbitMQ (with plugins)
 
-- For Scheduled Delivery. Needs Delayed Message Plugin
+- For Scheduled Delivery (not native). Needs Delayed Message Plugin
 - Ordered Queues / Sessions. FIFO within queue; limited session-like behavior via x-group-id or custom logic
 - Simulate RabbitMQ behavior with https://tryrabbitmq.com/
 
 #### Start RabbitMQ Locally
 
+Use Docker:
+´´´
+docker run -d --hostname my-rabbit --name some-rabbit -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=MyStrongP@ssword rabbitmq:3-management
+´´´
+
 #### Install RabbitMQ Client in .NET
 
-### NATS
-
-- Scheduled Delivery. Custom delay (not native) via stream retention + cron/consumer delay;
-- Ordered Queues / Sessions. Ordered consumers, but not true sessions
-
-#### Start NATS Locally
-
-- Install NATS Server:
-Download from NATS.io
-
-- Or use Docker:
+Add the required package:
 ´´´
-docker run -d --name nats-server -p 4222:4222 nats:latest
-´´´
-
-#### Install NATS Client in .NET
-
-- Add the required package:
-´´´
-dotnet add package NATS.Client.Core
+dotnet add package RabbitMQ.Client
 
 ´´´
 
@@ -82,8 +77,6 @@ dotnet add package NATS.Client.Core
 - Performance -> Faster, more optimized;
 - Dependency Overhead -> Lightweight;
 - Ease of Use -> Async-first API;
-- Streaming Support -> **JetStream** built-in;
-- Active Development -> Actively improved;
 
 ### Best Practices for Reducing Message Size
 
@@ -101,4 +94,4 @@ dotnet add package NATS.Client.Core
 
 - Implement retries and failure handling;
 - Add logging and monitoring;
-- Use NATS JetStream if message persistence is needed;
+- Use JetStream if message persistence is needed;
