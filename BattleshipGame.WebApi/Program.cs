@@ -4,6 +4,8 @@ using BattleshipGame.WebApi.Contracts.v1.Requests.InitGame;
 using BattleshipGame.WebApi.Contracts.v1.Responses;
 using frm.Infrastructure.Cqrs.Requests;
 using MediatR;
+using OpenTelemetry.Exporter;
+using OpenTelemetry.Logs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,23 @@ builder.Services.AddScoped<IMediator, Mediator>();
 // TODO: Encapsulate DI in extensions methods
 
 //builder.Services.AddSingleton<ICommandScheduler, CommandScheduler>();
+
+// Logging - OpenTelemetry for structured logs
+
+var otelEndpoint = builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"] ?? "http://localhost:4317";
+
+builder.Logging.ClearProviders();
+builder.Logging.AddOpenTelemetry(x =>
+{
+    x.IncludeScopes = true;
+    x.AddOtlpExporter(a =>
+        {
+            a.Endpoint = new Uri(otelEndpoint);
+            a.Protocol = OtlpExportProtocol.HttpProtobuf;
+            a.Headers = "";
+        }
+    );
+});
 
 // Validators
 //builder.Services.AddFluentValidationAutoValidation(); // Deprecated
