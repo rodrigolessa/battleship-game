@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - External dependencies",
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Architecture files", "0 - Architecture files", "{9BEA00D3-8F7F-4500-828A-79E8CAB5915C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - External Files", "0 - External Files", "{9BEA00D3-8F7F-4500-828A-79E8CAB5915C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.1 - Interface", "2.1 - Interface", "{95F99403-714B-4A8D-AB08-5C3693F9F96F}"
 EndProject
@@ -86,7 +86,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "frm.Infrastructure.EventSou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "frm.Infrastructure.Messaging.RabbitMqPublisher", "frm.Infrastructure.Messaging.RabbitMqPublisher\frm.Infrastructure.Messaging.RabbitMqPublisher.csproj", "{871A74DF-AF4A-44D5-A0B1-2EA37F295A94}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.1 - Arquivos de Projeto", "0.1 - Arquivos de Projeto", "{93098E16-230C-4A6F-8AB8-59C2881432CD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.1 - Project Files", "0.1 - Project Files", "{93098E16-230C-4A6F-8AB8-59C2881432CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2 - Deploy", "1.2 - Deploy", "{29616CFA-06CC-463A-8297-A827762DE9BA}"
 EndProject
