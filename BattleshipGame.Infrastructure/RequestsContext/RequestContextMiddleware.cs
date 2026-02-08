@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+
 namespace BattleshipGame.Infrastructure.RequestsContext;
 
 public class RequestContextMiddleware
@@ -38,6 +40,6 @@ public class RequestContextMiddleware
         requestContext.CorrelationKey = context.Request.Headers["X-Correlation-Key"].FirstOrDefault();
         requestContext.SagaProcessKey = context.Request.Headers["X-Saga-Process-Key"].FirstOrDefault();
 
-        await _next(context);
+        await _next(context); // Must call this to continue the pipeline
     }
 }
