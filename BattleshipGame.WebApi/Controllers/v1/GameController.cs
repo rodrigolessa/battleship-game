@@ -1,8 +1,10 @@
 using System.Net.Mime;
+using Asp.Versioning;
 using BattleshipGame.WebApi.Contracts.v1.Requests.CancelGame;
 using BattleshipGame.WebApi.Contracts.v1.Requests.Fire;
 using BattleshipGame.WebApi.Contracts.v1.Requests.InitGame;
-using BattleshipGame.WebApi.RequestProcessor;
+using BattleshipGame.WebApi.Contracts.v1.Responses;
+using frm.Infrastructure.Cqrs.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BattleshipGame.WebApi.Controllers.v1;
@@ -26,8 +28,8 @@ public class GameController : ControllerBase
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [Tags(nameof(InitGame))]
-    public async Task<IActionResult> InitGame(InitGameRequest requestContextBundle) =>
-        await _processor.Process<InitGameRequest, ObjectResult>(requestContextBundle);
+    public async Task<NewGameInfoResponse> InitGame(InitGameRequest requestContextBundle) =>
+        await _processor.Process<InitGameRequest, NewGameInfoResponse>(requestContextBundle);
 
     [HttpPut("{gameId}/fire")]
     [Produces(MediaTypeNames.Application.Json)]

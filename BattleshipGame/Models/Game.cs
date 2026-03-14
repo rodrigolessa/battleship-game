@@ -1,11 +1,7 @@
 using BattleshipGame.Models.Entities;
 using frm.Infrastructure.EventSourcing.Models;
-using StronglyTypedIds;
 
 namespace BattleshipGame.Models;
-
-[StronglyTypedId]
-public partial struct GameId {}
 
 public sealed class Game : AggregateRoot
 {

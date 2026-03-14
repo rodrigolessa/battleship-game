@@ -17,7 +17,7 @@ public class InitGameRequestHandler : IInitGameRequestHandler
         _commandPublisher = commandPublisher;
     }
 
-    public async Task<ObjectResult> Handle(InitGameRequest request, CancellationToken cancellationToken)
+    public async Task<NewGameInfoResponse> Handle(InitGameRequest request, CancellationToken cancellationToken)
     {
         var gameId = GameId.New();
         var playerOneId = PlayerId.New();
@@ -39,8 +39,6 @@ public class InitGameRequestHandler : IInitGameRequestHandler
         // TODO: Add a property in the MessageBrokerSettings to map commands to their respective binds
         await _commandPublisher.PublishAsync(command, "", MessageBrokerConstants.NewGameRoute, cancellationToken);
 
-        var newGameInfo = new NewGameInfoResponse(command.IdempotencyKey, gameId, playerOneId, playerTwoId);
-
-        return new ObjectResult(newGameInfo);
+        return new NewGameInfoResponse(command.IdempotencyKey, gameId, playerOneId, playerTwoId);
     }
 }

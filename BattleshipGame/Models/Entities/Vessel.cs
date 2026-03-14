@@ -3,7 +3,7 @@ using frm.Infrastructure.EventSourcing.Models;
 
 namespace BattleshipGame.Models.Entities;
 
-public abstract class Vessel : Entity
+public abstract class Vessel : Entity // TODO: Migrate to Value Object
 {
     public string Name { get; set; }
     public int Width { get; set; }

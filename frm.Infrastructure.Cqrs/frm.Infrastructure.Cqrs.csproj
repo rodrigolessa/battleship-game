@@ -8,7 +8,12 @@
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="12.5.0" />
-      <PackageReference Include="StronglyTypedId" Version="1.0.0-beta08" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Ulid">
+        <HintPath>..\..\..\.nuget\packages\ulid\1.4.1\lib\net8.0\Ulid.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

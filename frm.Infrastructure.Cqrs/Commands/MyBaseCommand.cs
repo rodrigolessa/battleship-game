@@ -5,6 +5,7 @@ public abstract class MyBaseCommand : IBaseCommand
     public string AggregateId { get; set; }
     public string IdempotencyKey { get; set; }
     public string SessionKey { get; set; }
+    public string RouteKey { get; set; }
     public string? CorrelationKey { get; set; }
     public string SagaProcessKey { get; set; }
     public string? ApplicationKey { get; set; }
@@ -15,6 +16,7 @@ public abstract class MyBaseCommand : IBaseCommand
         string aggregateId,
         string? idempotencyKey,
         string sessionKey,
+        string routeKey,
         string? correlationId,
         string? sagaProcessKey,
         string? applicationKey,
@@ -22,6 +24,7 @@ public abstract class MyBaseCommand : IBaseCommand
     {
         AggregateId = aggregateId;
         SessionKey = sessionKey;
+        RouteKey = routeKey;
         CorrelationKey = correlationId;
         ApplicationKey = applicationKey;
         UserEmail = userEmail;
@@ -35,7 +38,7 @@ public abstract class MyBaseCommand : IBaseCommand
     {
         if (string.IsNullOrWhiteSpace(idempotencyKey))
         {
-            IdempotencyKey = BaseCommandIdempotencyKey.New().ToString();
+            IdempotencyKey = Ulid.NewUlid().ToString();
         }
     }
     
@@ -43,7 +46,7 @@ public abstract class MyBaseCommand : IBaseCommand
     {
         if (string.IsNullOrWhiteSpace(sagaProcessKey))
         {
-            SagaProcessKey = BaseCommandIdempotencyKey.New().ToString();
+            SagaProcessKey = Ulid.NewUlid().ToString();
         }
     }
 }
